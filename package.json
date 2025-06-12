@@ -1,0 +1,17 @@
+{
+  "name": "sylvia",
+  "module": "index.ts",
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@types/bun": "latest",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "typescript-eslint": "^8.34.0",
+    "xo": "^1.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "private": true,
+  "type": "module"
+}
