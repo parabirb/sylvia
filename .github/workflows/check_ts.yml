@@ -1,5 +1,6 @@
 name: 'check-ts'
 on:
+  push:
   pull_request:
 jobs:
   ts:
