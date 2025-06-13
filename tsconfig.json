@@ -5,7 +5,7 @@
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
-    "allowJs": false,
+    "allowJs": true,
 
     // Bundler mode
     "moduleResolution": "bundler",
