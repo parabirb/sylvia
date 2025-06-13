@@ -1,9 +1,9 @@
 name: 'check-ts'
 on:
-  push:
   pull_request:
 jobs:
   ts:
+    name: Check TS compilation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
