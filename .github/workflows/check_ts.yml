@@ -1,7 +1,9 @@
 name: "check-ts"
 on:
     pull_request:
-permissions: write-all
+permissions:
+    pull-requests:
+        write
 jobs:
     ts:
         name: Check TS compilation
