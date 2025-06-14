@@ -16,12 +16,18 @@
         "typescript": "^5"
     },
     "lint-staged": {
-        "*.{ts,js}": [ "eslint --cache --fix", "bunx tsc --noEmit" ],
-        "*.{ts,js,md}": "prettier --write"
+        "*.{ts,tsx,js}": "eslint --cache --fix",
+        "*.{ts,tsx,js,md}": "prettier --write"
     },
     "private": true,
     "scripts": {
         "prepare": "husky install"
     },
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "@types/react": "^19.1.8",
+        "ansi-colors": "^4.1.3",
+        "ink": "^6.0.0",
+        "react": "^19.1.0"
+    }
 }

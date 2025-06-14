@@ -66,9 +66,7 @@ export class Connection extends EventEmitter {
                 origin,
                 arguments: args,
             });
-        } else if (
-            commands.includes(splitLine[1]! as (typeof commands)[number])
-        ) {
+        } else if (splitLine[1]! in commands) {
             this.emit("command", {
                 command: splitLine[1],
                 origin,
@@ -147,6 +145,6 @@ export class Connection extends EventEmitter {
             this.emit("line", splitBuffer.shift()!);
         }
 
-        this.buffer = splitBuffer.join("\n");
+        this.buffer = splitBuffer.length === 1 ? splitBuffer[0]! : "";
     }
 }
