@@ -84,6 +84,7 @@ export function stringToFormattedText(text: string): React.JSX.Element {
     };
     for (let i = 0; i < text.length; i++) {
         if (text[i]! in IrcFormatting) {
+            // This switch is actually exhaustive, but linter doesn't know
             // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
             switch (IrcFormatting[text[i]! as IrcFormatCode]) {
                 case "color": {
