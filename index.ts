@@ -1,8 +1,8 @@
-import { Client } from "./lib/client.ts";
+import { Connection } from "./lib/connection.ts";
 
-const client = new Client({
+const connection = new Connection({
     host: "irc.rizon.net",
-    port: 6697
+    port: 6697,
 });
 
-console.log(client);
+console.log(connection);
