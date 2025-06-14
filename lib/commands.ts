@@ -147,6 +147,11 @@ export enum Numeric {
     RPL_HELPTXT = "705",
     RPL_ENDOFHELP = "706",
     ERR_NOPRIVS = "723",
+    RPL_MONONLINE = "730",
+    RPL_MONOFFLINE = "731",
+    RPL_MONLIST = "732",
+    RPL_ENDOFMONLIST = "733",
+    ERR_MONLISTFULL = "734",
     RPL_LOGGEDIN = "900",
     RPL_LOGGEDOUT = "901",
     ERR_NICKLOCKED = "902",
@@ -175,6 +180,9 @@ export const commands = [
     "PRIVMSG",
     "NOTICE",
     "WALLOPS",
+    "AWAY",
+    "CHGHOST",
+    "SETNAME",
 ] as const;
 
 export type UnknownCommand = {

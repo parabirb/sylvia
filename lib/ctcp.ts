@@ -1,7 +1,7 @@
 // This TS file handles CTCPs.
 // sorry eslint, i gotta do this
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import type { UnknownCommand } from "./commands";
+import type { UnknownCommand } from "./commands.ts";
 
 export const ctcps = ["VERSION", "TIME", "PING", "DCC"] as const;
 
