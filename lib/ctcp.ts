@@ -3,18 +3,30 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { UnknownCommand } from "./commands.ts";
 
-export const ctcps = ["VERSION", "TIME", "PING", "DCC"] as const;
+export const ctcps = [
+    "VERSION",
+    "TIME",
+    "PING",
+    "DCC",
+    "ACTION",
+    "CLIENTINFO",
+    "FINGER",
+    "SOURCE",
+    "USERINFO",
+] as const;
+
+export type CtcpCommand = (typeof ctcps)[number];
 
 export type CtcpMessage = {
     origin: string;
     target: string;
-    command: (typeof ctcps)[number];
+    command: CtcpCommand;
     arguments: string;
     request: boolean;
 };
 
 export type OutgoingCtcp = {
-    command: (typeof ctcps)[number];
+    command: CtcpCommand;
     arguments: string;
 };
 
@@ -31,7 +43,7 @@ export function parseCtcp(command: UnknownCommand): CtcpMessage | false {
             : command.arguments.slice(1);
     const target = command.arguments[0]!;
     const ctcp = args[0]!.replaceAll("\u0001", "");
-    if (!ctcps.includes(ctcp as (typeof ctcps)[number])) return false;
+    if (!ctcps.includes(ctcp as CtcpCommand)) return false;
 
     if (args[0]!.startsWith("\u0001") && args.at(-1)!.endsWith("\u0001")) {
         args = args.slice(1);
@@ -44,7 +56,7 @@ export function parseCtcp(command: UnknownCommand): CtcpMessage | false {
     return {
         origin: command.origin,
         request,
-        command: ctcp as (typeof ctcps)[number],
+        command: ctcp as CtcpCommand,
         arguments: args.join(" "),
         target,
     };

@@ -68,8 +68,8 @@ function elementToJsx(element: Element, key: number) {
 export function stringToFormattedText(text: string): React.JSX.Element {
     // Remove ANSI color codes from the text
     text = unstyle(text);
-    // We don't support 0x11 (monospace) or 0x99 (defaults)
-    text = text.replaceAll("\u0011", "").replaceAll("\u0099", "");
+    // We don't support 0x11 (monospace)
+    text = text.replaceAll("\u0011", "");
     // Alright, now let's parse the text
     const elements: React.JSX.Element[] = [];
     const currentElement = {
@@ -103,8 +103,10 @@ export function stringToFormattedText(text: string): React.JSX.Element {
                         colorCode += text[i];
                     }
 
-                    if (colorCode && Number(colorCode) < 99)
+                    if (Number(colorCode) < 99)
                         color = `ansi256(${IrcColors[Number(colorCode)]})`;
+                    else if (Number(colorCode) === 99)
+                        color = "";
 
                     if (
                         color &&
@@ -120,8 +122,10 @@ export function stringToFormattedText(text: string): React.JSX.Element {
                         backgroundColorCode += text[i];
                     }
 
-                    if (backgroundColorCode && Number(backgroundColorCode) < 99)
+                    if (Number(backgroundColorCode) < 99)
                         backgroundColor = `ansi256(${IrcColors[Number(backgroundColorCode)]})`;
+                    else if (Number(backgroundColorCode) === 99)
+                        backgroundColor = "";
 
                     if (currentElement.text) {
                         elements.push(
@@ -130,13 +134,13 @@ export function stringToFormattedText(text: string): React.JSX.Element {
                         currentElement.text = "";
                     }
 
-                    if (color) {
+                    if (color === undefined) {
+                        currentElement.color = "";
+                        currentElement.backgroundColor = "";
+                    } else {
                         currentElement.color = color;
                         currentElement.backgroundColor =
                             backgroundColor ?? currentElement.backgroundColor;
-                    } else {
-                        currentElement.color = "";
-                        currentElement.backgroundColor = "";
                     }
 
                     break;
@@ -158,7 +162,12 @@ export function stringToFormattedText(text: string): React.JSX.Element {
                         IrcFormatting[
                             text[i]! as IrcFormatCode
                         ] as BooleanFormat
-                    ] = true;
+                    ] =
+                        !currentElement[
+                            IrcFormatting[
+                                text[i]! as IrcFormatCode
+                            ] as BooleanFormat
+                        ];
 
                     break;
                 }
